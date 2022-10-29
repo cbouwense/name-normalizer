@@ -16,16 +16,15 @@ class AuthorNameNormalizerTests {
     @Test
     fun `returns empty string when empty`() {
         assertThat(
-            normalizer.normalize(""),
+            normalizer.normalize(name = ""),
             equalTo("")
         )
     }
 
-    @Ignore
     @Test
     fun `returns single word name`() {
         assertThat(
-            normalizer.normalize("Plato"),
+            normalizer.normalize(name = "Plato"),
             equalTo("Plato")
         )
     }
