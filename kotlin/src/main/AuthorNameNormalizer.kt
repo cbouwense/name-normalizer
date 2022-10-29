@@ -5,16 +5,25 @@ class AuthorNameNormalizer() {
         val tokens = trimAndTokenize(name)
 
         when (tokens.size) {
-            3 -> return normalizeNameWithMiddleInitial(tokens)
+            3 -> return normalizeNameWithMiddleName(tokens)
             2 -> return swapFirstAndLastNames(tokens)
             else -> return name
         }
     }
 
-    private fun normalizeNameWithMiddleInitial(tokens: List<String>): String {
-        return buildString {
-            append(swapFirstAndLastNames(listOf(tokens[0], tokens[2])))
-            append(" ${tokens[1].first()}.")
+    private fun normalizeNameWithMiddleName(tokens: List<String>): String {
+        val middleNameIsInitial = tokens[1].length == 1
+
+        if (middleNameIsInitial) {
+            return buildString {
+                append(swapFirstAndLastNames(listOf(tokens[0], tokens[2])))
+                append(" ${tokens[1].first()}")
+            }
+        } else {
+            return buildString {
+                append(swapFirstAndLastNames(listOf(tokens[0], tokens[2])))
+                append(" ${tokens[1].first()}.")
+            }
         }
     }
 
