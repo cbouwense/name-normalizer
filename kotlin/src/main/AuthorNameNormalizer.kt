@@ -12,18 +12,12 @@ class AuthorNameNormalizer() {
     }
 
     private fun normalizeNameWithMiddleName(tokens: List<String>): String {
-        val middleNameIsInitial = tokens[1].length == 1
+        val middleNameIsAbbreviated = tokens[1].length == 1
 
-        if (middleNameIsInitial) {
-            return buildString {
-                append(swapFirstAndLastNames(listOf(tokens[0], tokens[2])))
-                append(" ${tokens[1].first()}")
-            }
-        } else {
-            return buildString {
-                append(swapFirstAndLastNames(listOf(tokens[0], tokens[2])))
-                append(" ${tokens[1].first()}.")
-            }
+        return buildString {
+            append(swapFirstAndLastNames(listOf(tokens[0], tokens[2])))
+            append(" ${tokens[1].first()}")
+            if (!middleNameIsAbbreviated) append(".")
         }
     }
 
