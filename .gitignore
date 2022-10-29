@@ -8,24 +8,26 @@ xcuserdata/
 out/
 
 # User-specific stuff
-.idea/**/workspace.xml
-.idea/**/tasks.xml
-.idea/**/usage.statistics.xml
-.idea/**/dictionaries
-.idea/**/shelf
+kotlin/.idea/workspace.xml
+kotlin/.idea/
+kotlin/.idea/**/workspace.xml
+kotlin/.idea/**/tasks.xml
+kotlin/.idea/**/usage.statistics.xml
+kotlin/.idea/**/dictionaries
+kotlin/.idea/**/shelf
 
 # Generated files
-.idea/**/contentModel.xml
+kotlin/.idea/**/contentModel.xml
 
 # Sensitive or high-churn files
-.idea/**/dataSources/
-.idea/**/dataSources.ids
-.idea/**/dataSources.local.xml
-.idea/**/sqlDataSources.xml
-.idea/**/dynamic.xml
-.idea/**/uiDesigner.xml
-.idea/**/dbnavigator.xml
+kotlin/.idea/**/dataSources/
+kotlin/.idea/**/dataSources.ids
+kotlin/.idea/**/dataSources.local.xml
+kotlin/.idea/**/sqlDataSources.xml
+kotlin/.idea/**/dynamic.xml
+kotlin/.idea/**/uiDesigner.xml
+kotlin/.idea/**/dbnavigator.xml
 
 # Gradle
-.idea/**/gradle.xml
-.idea/**/libraries
+kotlin/.idea/**/gradle.xml
+kotlin/.idea/**/libraries
