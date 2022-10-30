@@ -2,34 +2,38 @@ class AuthorNameNormalizer() {
     fun normalize(name: String): String {
         if (name == "") return ""
 
-        var tokens = trimAndTokenize(name)
-        var suffix: String? = null
-        if (tokens.last().last() == '.') {
-            suffix = tokens.last()
-            tokens = tokens.dropLast(1)
-        }
 
-        var nameToReturn = ""
+        val tokens = trimAndTokenize(name)
+        val suffix = getSuffixIfPresent(tokens)
+
+        if (suffix != null) return "${reorderName(tokens.dropLast(1))}, ${suffix}"
+        return reorderName(tokens)
+    }
+
+    private fun getSuffixIfPresent(tokens: List<String>): String? {
+        if (tokens.last().last() == '.') return tokens.last()
+        return null
+    }
+
+    private fun reorderName(tokens: List<String>): String {
         when (tokens.size) {
-            1 -> nameToReturn = name.trim()
-            2 -> nameToReturn = swapFirstAndLastNames(tokens)
-            else -> nameToReturn = normalizeNameWithMiddleNames(tokens)
+            1 -> return tokens.first().toString()
+            2 -> return swapFirstAndLastNames(tokens)
+            else -> return normalizeNameWithMiddleNames(tokens)
         }
-        if (suffix != null) return "${nameToReturn}, ${suffix}"
-        return nameToReturn
     }
 
     private fun normalizeNameWithMiddleNames(tokens: List<String>): String {
         val middleNames = tokens.drop(1).dropLast(1)
         val middleInitials = middleNames.map {
             buildString{
-                append("${it.first()}")
+                append(it.first())
                 if (it.length > 1) append(".")
             }
         }
 
         return buildString {
-            append(swapFirstAndLastNames(listOf(tokens.first(), tokens.last())))
+            append(swapFirstAndLastNames(tokens))
             append(" ")
             append(middleInitials.joinToString(" "))
         }
