@@ -6,8 +6,16 @@ class AuthorNameNormalizer() {
         val tokens = trimAndTokenize(name)
         val suffix = getSuffixIfPresent(tokens)
 
-        if (suffix != null) return "${reorderName(tokens.dropLast(1))}, ${suffix}"
+        if (suffix != null) return reorderNameAndAppendSuffix(tokens, suffix)
         return reorderName(tokens)
+    }
+
+    private fun reorderNameAndAppendSuffix(tokens: List<String>, suffix: String): String {
+        return buildString {
+            append(reorderName(tokens.dropLast(1)))
+            append(", ")
+            append(suffix)
+        }
     }
 
     private fun throwIfNameContainsMultipleCommas(name: String) {
