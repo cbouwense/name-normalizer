@@ -2,13 +2,21 @@ class AuthorNameNormalizer() {
     fun normalize(name: String): String {
         if (name == "") return ""
 
-        val tokens = trimAndTokenize(name)
-
-        when (tokens.size) {
-            1 -> return name.trim()
-            2 -> return swapFirstAndLastNames(tokens)
-            else -> return normalizeNameWithMiddleNames(tokens)
+        var tokens = trimAndTokenize(name)
+        var suffix: String? = null
+        if (tokens.last().last() == '.') {
+            suffix = tokens.last()
+            tokens = tokens.dropLast(1)
         }
+
+        var nameToReturn = ""
+        when (tokens.size) {
+            1 -> nameToReturn = name.trim()
+            2 -> nameToReturn = swapFirstAndLastNames(tokens)
+            else -> nameToReturn = normalizeNameWithMiddleNames(tokens)
+        }
+        if (suffix != null) return "${nameToReturn}, ${suffix}"
+        return nameToReturn
     }
 
     private fun normalizeNameWithMiddleNames(tokens: List<String>): String {
@@ -33,6 +41,8 @@ class AuthorNameNormalizer() {
 
     private fun trimAndTokenize(name: String): List<String> {
         val trimmedName = name.trim(' ')
-        return trimmedName.split(" ")
+        return trimmedName.split(" ").map {
+            it.trimEnd(',')
+        }
     }
 }
