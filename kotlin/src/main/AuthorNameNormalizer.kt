@@ -1,13 +1,17 @@
 class AuthorNameNormalizer() {
     fun normalize(name: String): String {
         if (name == "") return ""
-
+        throwIfNameContainsMultipleCommas(name)
 
         val tokens = trimAndTokenize(name)
         val suffix = getSuffixIfPresent(tokens)
 
         if (suffix != null) return "${reorderName(tokens.dropLast(1))}, ${suffix}"
         return reorderName(tokens)
+    }
+
+    private fun throwIfNameContainsMultipleCommas(name: String) {
+        if (name.filter { it == ',' }.length > 1) throw IllegalArgumentException()
     }
 
     private fun getSuffixIfPresent(tokens: List<String>): String? {
